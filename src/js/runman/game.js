@@ -16,6 +16,7 @@ var loading = require('./loading');
  */
 var game = {
     init:function(stageContainer){
+        console.log(loading)
         this.stageContainer = stageContainer;
         this.bindEvent();
         loading.start();
