@@ -22,6 +22,7 @@ var gameWidth = 320;
 var gameHeight = 400;
 var stageScaleX = innerWidth / gameWidth;
 var stageScaleY = innerHeight / gameHeight;
+
 var game = {
 	init: function(stageContainer) {
 		this.stageContainer = stageContainer;
@@ -93,7 +94,8 @@ var game = {
 		};
 	},
 	_initScene: function() {
-		//创建动画精灵类
+        //创建动画精灵类
+        let that = this;
 		var fish = (this.fish = new Sprite({
 			frames: this.atlas.getSprite('fish'),
 			x: 0,
@@ -103,7 +105,7 @@ var game = {
 			loop: true, //判断精灵是否可以循环播放
 			onUpdate: function() {
 				// console.log(that.stage.width, this.x, this.pivotX);
-				if (this.x > this.stage.width - this.pivotX) {
+				if (this.x > that.stage.width - this.pivotX) {
 					this.x = -100;
 				} else {
 					this.x += 3;
