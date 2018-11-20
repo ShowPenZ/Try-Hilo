@@ -100,7 +100,7 @@ var game = {
 			frames: this.atlas.getSprite('fish'),
 			x: 0,
 			y: 100,
-			interval: 6, // 精灵动画的帧间隔，如果timeBased为true，则单位为毫秒，否则为帧数。
+			interval: 5, // 精灵动画的帧间隔，如果timeBased为true，则单位为毫秒，否则为帧数。
 			timeBased: false, //指定精灵动画是否是以时间为基准。默认为false，即以帧为基准。
 			loop: true, //判断精灵是否可以循环播放
 			onUpdate: function() {

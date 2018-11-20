@@ -9,7 +9,7 @@
 	"scripts": {
 		"start": "webpack --mode development",
 		"test": " echo \"Error: no test specified\" && exit 1",
-		"server": "webpack-dev-server --hot"
+		"server": "webpack-dev-server --hot --open"
 	},
 	"main": "",
 	"keywords": [
