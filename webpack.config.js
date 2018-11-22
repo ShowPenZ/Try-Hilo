@@ -42,6 +42,14 @@ module.exports = {
 				}
 			},
 			{
+				test: /\.(mp3)$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000,
+					name: 'audio/[name].[hash:8].[ext]'
+				}
+			},
+			{
 				test: /\.css$/,
 				use: [
 					{

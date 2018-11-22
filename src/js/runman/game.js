@@ -4,6 +4,8 @@ var TextureAtlas = require('../hilo/util/TextureAtlas');
 var Sprite = require('../hilo/view/Sprite');
 var Ticker = require('../hilo/util/Ticker');
 var Bitmap = require('../hilo/view/Bitmap');
+var WebSound = require('../hilo/media/WebSound');
+
 var mediator = require('./mediator');
 var resource = require('./resource');
 var loading = require('./loading');
@@ -29,6 +31,9 @@ var game = {
 		this.bindEvent();
 		loading.start();
 		resource.load();
+		WebSound.getAudio({
+			src: require('../../audio/open.mp3')
+		}).play();
 	},
 	bindEvent: function() {
 		var that = this;
@@ -94,24 +99,36 @@ var game = {
 		};
 	},
 	_initScene: function() {
-        //创建动画精灵类
-        let that = this;
+		//创建动画精灵类
+		let that = this,
+			hudu = 0,
+			times = null,
+			displacementX = null,
+			displacementY = null,
+			r = 70;
+		console.log(this, this.pivotX);
 		var fish = (this.fish = new Sprite({
 			frames: this.atlas.getSprite('fish'),
 			x: 0,
-			y: 100,
+			y: 150,
 			interval: 5, // 精灵动画的帧间隔，如果timeBased为true，则单位为毫秒，否则为帧数。
 			timeBased: false, //指定精灵动画是否是以时间为基准。默认为false，即以帧为基准。
 			loop: true, //判断精灵是否可以循环播放
 			onUpdate: function() {
-				// console.log(that.stage.width, this.x, this.pivotX);
-				if (this.x > that.stage.width - this.pivotX) {
-					this.x = -100;
+				if (hudu > 0 && hudu == 2 * Math.PI.toFixed(4)) {
+					times = 0.1;
 				} else {
-					this.x += 3;
+					times += 0.1;
 				}
+				hudu = (((2 * Math.PI) / 360) * 6 * times).toFixed(4);
+				console.log(hudu);
+				this.rotation = hudu * 60;
+				this.x = 150 + Math.sin(hudu) * r;
+				this.y = 150 - Math.cos(hudu) * r;
 			}
 		}));
+		fish.scaleX = 0.6;
+		// fish.scaley = 0.1
 
 		// var fish = (this.fish = new Bitmap({
 		// 	x: 100,
@@ -131,12 +148,12 @@ var game = {
 		// }));
 		// fish.alphaSpeed = 0.02;
 
-        //创建背景
+		//创建背景
 		var bg = (this.bg = new Bitmap({
 			image: resource.get('bg')
 		}));
 
-        //将fish类，bg类添加到舞台中
+		//将fish类，bg类添加到舞台中
 		this.stage.addChild(bg, fish);
 	}
 };
